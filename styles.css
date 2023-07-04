@@ -1,0 +1,100 @@
+body > table{
+    width: 80%;
+}
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+table{
+    border-collapse: collapse;
+}
+.main-table td ,th{
+    /* border: none; */
+    /* border-collapse: collapse; */
+}
+
+body{
+    background-color: black;
+}
+.saprater{
+    display: flex;
+    flex-direction: column;
+    padding: 100px;
+}
+.inputtag{
+    display: flex;
+}
+
+
+table.list{
+    
+    table-layout:fixed;
+    width: 80%;
+}
+.fa{
+    color: white;
+}
+
+  
+.fatch td{
+   color: #dddddd
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+tr:nth-child(even),table.list thead>tr {
+    background-color: transparent;
+    color: #dddddd;
+}
+
+input[type=text]{
+    width: 100%;
+    color: #dddddd;
+    background: transparent;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+.form-action-buttons input{
+    display: block;
+    width: 200;
+   
+}
+input[type=submit]{
+    width: 40%;
+    background-color: #ddd;
+    color: #000000;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+}
+
+form div.form-action-buttons{
+    text-align: right;
+}
+
+a {
+    cursor: pointer;
+    text-decoration: none;
+    color: #dddddd;
+    margin-right: 4px;
+}
+label{
+    color: white;
+}
+
+label.validation-error{
+    color:   red;
+    margin-left: 20px;
+}
+
+.hide{
+    display:none;
+}
