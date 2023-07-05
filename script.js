@@ -1,85 +1,159 @@
-var selectedRow = null
+//students data array with dummy values
+let count = 0;
+let studentData = [{
+    ID: count,
+    name: "dummy",
+    age: null,
+    gpa: null,
+    degree: "dummy",
+    email: "dummy"
+}]
 
-function onFormSubmit() {
-    if (validate()) {
-        var formData = readFormData();
-        if (selectedRow == null)
-            insertNewRecord(formData);
-        else
-            updateRecord(formData);
-        resetForm();
+//count to keep tract of Student ID
+// let count = 0;
+
+
+//initially calling displayData function to display dummy data
+displayData(studentData);
+
+//function to display data whenever user does any manupulation
+function displayData(arr){
+    let container = document.getElementById("table-id")
+    container.innerHTML = ``;
+    let str = `
+    <tr>
+        <td>ID</td>
+        <td>Student Name</td>
+        <td>Email</td>
+        <td>Age</td>
+        <td>GPA</td>
+        <td>Degree</td>
+    </tr>`;
+    for(let i = 0;i<arr.length;i++){
+        str = str + `<tr>
+        <td>${arr[i].ID}</td>
+        <td>${arr[i].name}</td>
+        <td>${arr[i].email}</td>
+        <td>${arr[i].age}</td>
+        <td>${arr[i].gpa}</td>
+        <td class="degree-edit-trash">
+        <div>${arr[i].degree}</div>
+        <div>
+        <button id="edit-button" class="btn" onclick="editData(event)">
+        <img src="assets/images/pic.png" id="edit-id${arr[i].ID}" alt="edit">
+        </button>
+        <button id="trash-button" class="btn" onclick="deleteData(event)">
+        <img src="assets/images/trash.png" id="trash-id${arr[i].ID}" alt="trash">
+        </button>
+        </div>
+        </td>
+    </tr>
+        `
+}
+    container.innerHTML = str;
+}
+
+
+//function to search student
+document.getElementById("search-student-id").addEventListener("keyup",Event=>{
+    let searchTerm = document.getElementById("search-student-id").value.trim().toLowerCase();
+    let filteredData = studentData.filter(item=>{
+        let sName = item.name.toLowerCase();
+        let sEmail = item.email.toLowerCase();
+        let sDegree = item.degree.toLowerCase();
+        console.log(sName,sDegree,sEmail,searchTerm);
+        return sName.includes(searchTerm) || sEmail.includes(searchTerm) || sDegree.includes(searchTerm);
+    })
+    displayData(filteredData);
+})
+
+//function to add Student
+function addStudent(){
+    let name = document.getElementById("name").value;
+    let age = document.getElementById("age").value;
+    let email = document.getElementById("email").value;
+    let gpa = document.getElementById("gpa").value;
+    let degree = document.getElementById("degree").value;
+    let obj = { ID: ++count,
+        name: name,
+        age: age,
+        gpa: gpa,
+        degree: degree,
+        email: email 
+}
+//push to studentData array
+studentData.push(obj);
+//display updated array
+displayData(studentData);
+//empty the input feilds
+document.getElementById("name").value = '';
+document.getElementById("age").value = '';
+document.getElementById("email").value = '';
+document.getElementById("gpa").value = '';
+document.getElementById("degree").value = '';
+}
+
+
+
+//function to edit students data
+function editData(event){
+    //first store the data in variable
+    let btnID = event.target.id;  //edit-id
+    let extractedID = Number(btnID.substring(7));
+
+    //changing button colour and content
+    let toggle = document.getElementById("add-button-id");
+    toggle.textContent = '';
+    toggle.textContent = 'Edit Student';
+    toggle.style.backgroundColor = 'black';
+    toggle.style.color = 'white';
+
+    for(let i = 0;i<studentData.length;i++){
+        if(studentData[i].ID == extractedID){
+            document.getElementById("name").value = studentData[i].name;
+            document.getElementById("email").value = studentData[i].email;
+            document.getElementById("age").value = studentData[i].age;
+            document.getElementById("gpa").value = studentData[i].gpa;
+            document.getElementById("degree").value = studentData[i].degree;
+            studentData.splice(i,1);
+            displayData(studentData);
+            break;
+        }
     }
-}
 
-function readFormData() {
-    var formData = {};
-    formData["fullName"] = document.getElementById("fullName").value;
-    formData["empCode"] = document.getElementById("empCode").value;
-    formData["salary"] = document.getElementById("salary").value;
-    formData["city"] = document.getElementById("city").value;
-    formData["degree"] = document.getElementById("degree").value;
-    return formData;
-}
 
-function insertNewRecord(data) {
-    var table = document.getElementById("employeeList").getElementsByTagName('tbody')[0];
-    var newRow = table.insertRow(table.length);
-    cell1 = newRow.insertCell(0);
-    cell1.innerHTML = data.fullName;
-    cell2 = newRow.insertCell(1);
-    cell2.innerHTML = data.empCode;
-    cell3 = newRow.insertCell(2);
-    cell3.innerHTML = data.salary;
-    cell5 = newRow.insertCell(3);
-    cell5.innerHTML = data.degree;
-    cell4 = newRow.insertCell(4);
-    cell4.innerHTML = data.city;
-    cell4 = newRow.insertCell(5);
+    //reverting button to original state
+    toggle.addEventListener("click",()=>{
+    toggle.textContent = '';
+    toggle.textContent = 'Add Student';
+    toggle.style.backgroundColor = 'white';
+    toggle.style.color = 'black';
+    toggle.style.border = '1px solid';
+    })
+    count--;
     
-    cell4.innerHTML = `<a onClick="onEdit(this)"><i class="fa-solid fa-pen-to-square"></i></i></a>
-                       <a onClick="onDelete(this)"><i class="fa-solid fa-trash-can"></a>`;
 }
 
-function resetForm() {
-    document.getElementById("fullName").value = "";
-    document.getElementById("empCode").value = "";
-    document.getElementById("salary").value = "";
-    document.getElementById("city").value = "";
-    document.getElementById("degree").value = "";
-    selectedRow = null;
-}
 
-function onEdit(td) {
-    selectedRow = td.parentElement.parentElement;
-    document.getElementById("fullName").value = selectedRow.cells[0].innerHTML;
-    document.getElementById("empCode").value = selectedRow.cells[1].innerHTML;
-    document.getElementById("salary").value = selectedRow.cells[2].innerHTML;
-    document.getElementById("city").value = selectedRow.cells[4].innerHTML;
-    document.getElementById("degree").value = selectedRow.cells[3].innerHTML;
-}
-function updateRecord(formData) {
-    selectedRow.cells[0].innerHTML = formData.fullName;
-    selectedRow.cells[1].innerHTML = formData.empCode;
-    selectedRow.cells[2].innerHTML = formData.salary;
-    selectedRow.cells[3].innerHTML = formData.city;
-}
-
-function onDelete(td) {
-    if (confirm('Are you sure to delete this record ?')) {
-        row = td.parentElement.parentElement;
-        document.getElementById("employeeList").deleteRow(row.rowIndex);
-        resetForm();
+//function to delete student data
+function deleteData(event){
+    let btnID = event.target.id; 
+    let extractedID = Number(btnID.substring(8));
+    for(let i = 0;i<studentData.length;i++){
+        if(studentData[i].ID == extractedID){
+            studentData.splice(i,1);
+        }
     }
+    count--;
+    displayData(studentData);
 }
-function validate() {
-    isValid = true;
-    if (document.getElementById("fullName").value == "") {
-        isValid = false;
-        document.getElementById("fullNameValidationError").classList.remove("hide");
-    } else {
-        isValid = true;
-        if (!document.getElementById("fullNameValidationError").classList.contains("hide"))
-            document.getElementById("fullNameValidationError").classList.add("hide");
-    }
-    return isValid;
-}
+
+
+
+
+
+
+
+
+
+

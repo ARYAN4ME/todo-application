@@ -1,100 +1,79 @@
-body > table{
-    width: 80%;
-}
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-table{
-    border-collapse: collapse;
-}
-.main-table td ,th{
-    /* border: none; */
-    /* border-collapse: collapse; */
-}
-
 body{
     background-color: black;
-}
-.saprater{
-    display: flex;
-    flex-direction: column;
-    padding: 100px;
-}
-.inputtag{
-    display: flex;
-}
-
-
-table.list{
-    
-    table-layout:fixed;
-    width: 80%;
-}
-.fa{
+    padding: 10px;
     color: white;
 }
 
-  
-.fatch td{
-   color: #dddddd
-}
-
-td, th {
-    border: 1px solid #dddddd;
-    text-align: left;
-    padding: 8px;
-}
-tr:nth-child(even),table.list thead>tr {
-    background-color: transparent;
-    color: #dddddd;
-}
-
-input[type=text]{
-    width: 100%;
-    color: #dddddd;
-    background: transparent;
-    padding: 12px 20px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px solid #ccc;
+*{
+    font-family: 'Poppins', sans-serif;
+    font-weight: 300;
     box-sizing: border-box;
 }
-.form-action-buttons input{
-    display: block;
-    width: 200;
-   
-}
-input[type=submit]{
-    width: 40%;
-    background-color: #ddd;
-    color: #000000;
-    padding: 14px 20px;
-    margin: 8px 0;
-    border: none;
-    cursor: pointer;
+
+.data-input{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
 }
 
-form div.form-action-buttons{
-    text-align: right;
-}
-
-a {
-    cursor: pointer;
-    text-decoration: none;
-    color: #dddddd;
-    margin-right: 4px;
-}
-label{
+.data-input input{
+    background-color: black;
+    border: 1px solid whitesmoke;
+    padding: 10px;
+    width: 80%;
+    margin-bottom: 15px;
     color: white;
 }
 
-label.validation-error{
-    color:   red;
-    margin-left: 20px;
+#add-button-id{
+    width: 40%;
+    padding: 10px;
+    font-weight: 400;
+    margin-top: 17px;
+    border: 1px solid white;
 }
 
-.hide{
-    display:none;
+#search-student-id{
+    background-color: black;
+    border: 1px solid whitesmoke;
+    padding: 10px;
+    width: 90%;
+    margin-top: 60px;
+    
+
+}
+
+table{
+    margin-top: 30px;
+    width: 100%;
+    align-items: center;
+    
+    
+}
+table, th, td {
+    border: 1px solid white;
+    border-collapse: collapse;
+  }
+td{
+    padding: 20px;
+    font-weight: 200;
+}
+
+.data-table{
+    border-bottom: 1px solid white;
+    border-left: 1px solid white;
+    border-right: 1px solid white;
+    height: auto;
+}
+
+.degree-edit-trash{
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn{
+    background-color: black;
+}
+
+#search-student-id{
+    color: white;
 }
